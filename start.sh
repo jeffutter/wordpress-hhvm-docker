@@ -1,4 +1,6 @@
 #!/bin/bash
+service nginx start
+
 cd /home/wordpress/wordpress
 if ! grep -Fxq "define( 'Object', 'OBJECT', true );" wp-includes/wp-db.php
 then
