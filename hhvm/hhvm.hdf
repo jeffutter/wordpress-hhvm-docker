@@ -1,3 +1,5 @@
+PidFile = /var/run/hhvm.pid
+
 Server {
   Port = 8080
   SourceRoot = /home/wordpress/wordpress/
