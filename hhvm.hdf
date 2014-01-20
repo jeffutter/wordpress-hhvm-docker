@@ -1,0 +1,59 @@
+Server {
+  Port = 80
+  SourceRoot = /home/wordpress/wordpress/
+  DefaultDocument = index.php
+}
+
+Eval {
+  Jit = true
+  JitASize = 67108864
+  JitAStubsSize = 67108864
+  JitGlobalDataSize = 16777216
+}
+Log {
+  Level = Error
+  UseLogFile = true
+  File = /var/log/hhvm/error.log
+  Access {
+    * {
+      File = /var/log/hhvm/access.log
+      Format = %h %l %u %t \"%r\" %>s %b
+    }
+  }
+}
+
+VirtualHost {
+  * {
+    Pattern = .*
+    RewriteRules {
+      dirindex {
+        pattern = ^/(.*)/$
+        to = $1/index.php
+        qsa = true
+      }
+    }
+  }
+}
+
+StaticFile {
+  FilesMatch {
+    * {
+      pattern = .*\.(dll|exe)
+      headers {
+        * = Content-Disposition: attachment
+      }
+    }
+  }
+  Extensions {
+    css = text/css
+    gif = image/gif
+    html = text/html
+    jpe = image/jpeg
+    jpeg = image/jpeg
+    jpg = image/jpeg
+    png = image/png
+    tif = image/tiff
+    tiff = image/tiff
+    txt = text/plain
+  }
+}
