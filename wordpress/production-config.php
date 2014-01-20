@@ -16,6 +16,9 @@ define('DB_PORT', getenv("MYSQL_PORT_3306_TCP_PORT"));
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
 
+define("WP_SITEURL", "http://" . $_SERVER['HTTP_HOST'] );
+define("WP_HOME", "http://" . $_SERVER['HTTP_HOST'] );
+
 /* Keys & Salts */
 
 define('AUTH_KEY',         '5H%)s-nQ,+fn0gwg/p1UjBTmCQ?l[8-!>Q{MW&?X3DM,OF;TaI<SOOTrl0+-@) *');
