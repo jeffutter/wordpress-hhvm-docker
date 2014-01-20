@@ -8,12 +8,6 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN locale-gen $LANG; echo "LANG=\"${LANG}\"" > /etc/default/locale; dpkg-reconfigure locales
 
-RUN dpkg-divert --local --rename --add /sbin/initctl
-RUN ln -s /bin/true /sbin/initctl
-
-# prevent apt from starting things right after the installation
-RUN echo "#!/bin/sh\nexit 101" > /usr/sbin/policy-rc.d; chmod +x /usr/sbin/policy-rc.d
-
 RUN apt-get update
 RUN apt-get install -y wget
 RUN wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add -
@@ -22,9 +16,6 @@ RUN echo deb http://archive.ubuntu.com/ubuntu precise main universe | tee /etc/a
 RUN apt-get update
 
 RUN apt-get install -y hhvm
-
-# allow autostart again
-RUN rm /usr/sbin/policy-rc.d
 
 RUN adduser --disabled-login --gecos 'Wordpress' wordpress
 
