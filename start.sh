@@ -13,5 +13,7 @@ fi
 sed -i -r "s/define\(\s*'OBJECT',\s+'OBJECT',\s+true\s*\);/define( 'OBJECT', 'OBJECT' );/" wp-includes/wp-db.php
 cp ../wp-config.php ./
 cp ../production-config.php ./
+chown wordpress:wordpress wp-config.php production-config.php
+
 hhvm -m daemon -u wordpress -c /etc/hhvm.hdf
 tail -f /var/log/hhvm/error.log
