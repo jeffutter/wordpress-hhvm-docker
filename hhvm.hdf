@@ -10,6 +10,12 @@ Eval {
   JitAStubsSize = 67108864
   JitGlobalDataSize = 16777216
 }
+Repo {
+  Authoritative = false
+  Central {
+    Path = /var/run/hhvm.hhbc.sq3
+  }
+}
 Log {
   Level = Error
   UseLogFile = true
