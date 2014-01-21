@@ -15,5 +15,6 @@ cp ../production-config.php ./
 chown wordpress:wordpress wp-config.php production-config.php
 
 service nginx start
+service hhvm-fastcgi start
 
 tail -f /var/log/nginx/error.log
