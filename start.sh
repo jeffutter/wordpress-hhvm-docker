@@ -10,9 +10,8 @@ then
   sed -i -r "/define\(\s*'OBJECT',\s+'OBJECT',\s+true\s*\);/a define( 'object', 'OBJECT' );" wp-includes/wp-db.php
 fi
 sed -i -r "s/define\(\s*'OBJECT',\s+'OBJECT',\s+true\s*\);/define( 'OBJECT', 'OBJECT' );/" wp-includes/wp-db.php
-cp ../wp-config.php ./
-cp ../production-config.php ./
-chown wordpress:wordpress wp-config.php production-config.php
+mv ../wp-config ./
+chown wordpress:wordpress wp-config.php ../production-config.php
 
 /usr/bin/hhvm --config /etc/hhvm/server.hdf --user www-data --mode daemon -vServer.Type=fastcgi -vServer.Port=9000 &
 service nginx start
