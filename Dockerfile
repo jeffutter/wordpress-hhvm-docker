@@ -15,7 +15,7 @@ RUN echo deb http://dl.hhvm.com/ubuntu precise main | tee /etc/apt/sources.list.
 RUN echo deb http://archive.ubuntu.com/ubuntu precise main universe | tee /etc/apt/sources.list
 RUN apt-get update
 
-RUN apt-get install -y hhvm nginx
+RUN apt-get install -y hhvm-fastcgi nginx
 
 RUN adduser --disabled-login --gecos 'Wordpress' wordpress
 
@@ -23,7 +23,6 @@ RUN cd /home/wordpress; wget http://wordpress.org/latest.tar.gz; tar -xvzf lates
 
 EXPOSE 80
 
-ADD hhvm/hhvm.hdf /etc/hhvm.hdf
 ADD nginx/nginx.conf /etc/nginx/nginx.conf
 ADD start.sh /start.sh
 RUN chmod 755 /start.sh
