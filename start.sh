@@ -1,5 +1,4 @@
 #!/bin/bash
-service nginx start
 
 cd /home/wordpress/wordpress
 if ! grep -Fxq "define( 'Object', 'OBJECT', true );" wp-includes/wp-db.php
@@ -15,5 +14,6 @@ cp ../wp-config.php ./
 cp ../production-config.php ./
 chown wordpress:wordpress wp-config.php production-config.php
 
-hhvm -m daemon -u wordpress -c /etc/hhvm.hdf
-tail -f /var/log/hhvm/error.log
+service nginx start
+
+tail -f /var/log/nginx/error.log
