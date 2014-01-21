@@ -16,4 +16,4 @@ chown wordpress:wordpress wp-config.php ../production-config.php
 /usr/bin/hhvm --config /etc/hhvm/server.hdf --user www-data --mode daemon -vServer.Type=fastcgi -vServer.Port=9000 &
 service nginx start
 
-tail -f /var/log/nginx/error.log
+tail -f /var/log/hhvm/error.log -f /var/log/nginx/error.log
