@@ -8,11 +8,10 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN locale-gen $LANG; echo "LANG=\"${LANG}\"" > /etc/default/locale; dpkg-reconfigure locales
 
-RUN apt-get update
 RUN apt-get install -y wget
 RUN wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add -
-RUN echo deb http://dl.hhvm.com/ubuntu precise main | tee /etc/apt/sources.list.d/hhvm.list
-RUN echo deb http://archive.ubuntu.com/ubuntu precise main universe | tee /etc/apt/sources.list
+RUN echo deb http://dl.hhvm.com/ubuntu trusty main | tee /etc/apt/sources.list.d/hhvm.list
+RUN echo deb http://archive.ubuntu.com/ubuntu trusty main universe | tee /etc/apt/sources.list
 RUN apt-get update
 
 RUN apt-get install -y hhvm-fastcgi nginx

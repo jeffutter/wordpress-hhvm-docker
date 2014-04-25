@@ -13,7 +13,7 @@ sed -i -r "s/define\(\s*'OBJECT',\s+'OBJECT',\s+true\s*\);/define( 'OBJECT', 'OB
 mv ../wp-config.php ./
 chown wordpress:wordpress wp-config.php ../production-config.php
 
-/usr/bin/hhvm --config /etc/hhvm/server.hdf --user www-data --mode daemon -vServer.Type=fastcgi -vServer.Port=9000 &
+/usr/bin/hhvm --config /etc/hhvm/server.ini --user www-data --mode daemon &
 service nginx start
 
 tail -f /var/log/hhvm/error.log -f /var/log/nginx/error.log
