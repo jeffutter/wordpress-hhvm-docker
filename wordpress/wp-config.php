@@ -98,6 +98,7 @@ if ( WP_LOCAL_SERVER || WP_DEV_SERVER ) {
     define( 'WP_DEBUG', false );
 }
 
+define('FS_METHOD', 'direct');
 
 /* That's all, stop editing! Happy blogging. */
 
