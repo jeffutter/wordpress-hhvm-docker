@@ -5,21 +5,27 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
 
-RUN locale-gen $LANG;
-    echo "LANG=\"${LANG}\"" > /etc/default/locale;
-    dpkg-reconfigure locales
+RUN locale-gen $LANG \
+    && echo "LANG=\"${LANG}\"" > /etc/default/locale \
+    && dpkg-reconfigure locales
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget ;\
-    wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add - ;\
-    echo deb http://dl.hhvm.com/ubuntu trusty main | tee /etc/apt/sources.list.d/hhvm.list ;\
-    apt-get update ;\
-    apt-get install -y hhvm-fastcgi nginx
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y wget \
+    && wget -O - http://dl.hhvm.com/conf/hhvm.gpg.key | apt-key add - \
+    && echo deb http://dl.hhvm.com/ubuntu trusty main | tee /etc/apt/sources.list.d/hhvm.list \
+    && apt-get update \
+    && apt-get install -y hhvm-fastcgi nginx \
+    && rm -rf /var/lib/apt/lists/*
+    
+    
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log \
+	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
 RUN adduser --disabled-login --gecos 'Wordpress' wordpress
 
-RUN cd /home/wordpress ;\
-    wget http://wordpress.org/latest.tar.gz; tar -xvzf latest.tar.gz ;\
-    rm latest.tar.gz
+RUN cd /home/wordpress \
+    && wget http://wordpress.org/latest.tar.gz; tar -xvzf latest.tar.gz \
+    && rm latest.tar.gz
 
 EXPOSE 80
 
