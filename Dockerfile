@@ -4,7 +4,7 @@ MAINTAINER Jeffery Utter "jeff@jeffutter.com"
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
-ENV DEBIAN_FRONTEND noninteractive 
+ENV DEBIAN_FRONTEND noninteractive
 
 RUN locale-gen $LANG \
     && echo "LANG=\"${LANG}\"" > /etc/default/locale \
@@ -19,7 +19,7 @@ RUN apt-get -qq update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /var/run/nginx /var/run/hhvm /var/log/supervisor
-    
+
 # forward request and error logs to docker log collector
 # RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 #   && ln -sf /dev/stderr /var/log/nginx/error.log \
@@ -39,5 +39,6 @@ RUN chmod 755 /setup.sh
 ADD wordpress/wp-config.php /home/wordpress/
 ADD wordpress/production-config.php /home/wordpress/
 RUN chown wordpress:wordpress /home/wordpress/*.php
+ADD server.ini /etc/hhvm/server.ini
 
 CMD ["/usr/bin/supervisord"]
